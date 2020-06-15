@@ -1,0 +1,64 @@
+You should configure the sonar-runner to use your existing SonarQube server. To do so, you need to update its conf/sonar-runner.properties file and specify the SonarQube server URL, username, password, and JDBC URL as well. See https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner for details.
+
+If you don't yet have an up and running SonarQube server, then you can launch one locally (with the default configuration) - it will bind to http://localhost:9000 and work with the default sonar-runner configuration. See https://docs.sonarqube.org/latest/setup/get-started-2-minutes/ for details on how to get started with the SonarQube server.
+
+
+In the config file there is a colon instead of an equal sign after the sonar.web.host.
+sonar.web.host:sonarqube
+sonar.web.host=sonarqube
+
+In sonar.properties file in conf folder I had hardcoaded ip of my machine where sobarqube was installed in property sonar.web.host=10.9 235.22 I commented this and it started working for me.
+
+
+the default setting - if not set otherwise in …/conf/sonarqube.properties via sonar.search.javaOpts property - is Xms and Xmx = 2G, 512MB seems too low.
+
+
+
+############################
+
+sudo cp /opt/sonar/bin/linux-x86-64/sonar.sh /etc/init.d/sonar
+
+
+Insert two new lines:
+
+# Adding below two new lines manually
+
+SONAR_HOME=/opt/sonar
+
+PLATFORM=linux-x86-64
+
+Modify the following lines:
+
+WRAPPER_CMD="${SONAR_HOME}/bin/${PLATFORM}/wrapper"
+
+WRAPPER_CONF="${SONAR_HOME}/conf/wrapper.conf"
+
+...
+
+PIDDIR="/var/run"
+
+To
+
+# Wrapper
+
+#WRAPPER_CMD="./wrapper"
+
+#WRAPPER_CONF="../../conf/wrapper.conf"
+
+WRAPPER_CMD="${SONAR_HOME}/bin/${PLATFORM}/wrapper"
+
+WRAPPER_CONF="${SONAR_HOME}/conf/wrapper.conf"
+
+# Location of the pid file.
+
+#PIDDIR="."
+
+PIDDIR="/var/run"
+
+Register as a Linux service:
+
+https://www.digitalocean.com/community/questions/could-not-open-localhost-9000-sonar-ubuntu-server-16-04-3
+https://www.vultr.com/docs/how-to-install-sonarqube-on-ubuntu-16-04
+https://www.fosstechnix.com/install-sonarqube-on-ubuntu/
+############################
+
