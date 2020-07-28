@@ -1,0 +1,15 @@
+Jenkins with ansible playbooks
+
+install apache and restart it via jenkins using ansible playbooks
+
+Java project with testing, it should send data to sonarquabe
+
+Jenkins with jenkins file, jenkins pipeline
+
+Jenkins plugin which shows username who triggers the job
+
+Jenkins parameterize pipeline to send an email 
+
+Jenkins job to create docker image (Store it to nexus)
+
+Arithmetic operations via Jenkins i.e. parameterized job
